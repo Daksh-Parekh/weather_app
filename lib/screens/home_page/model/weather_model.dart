@@ -4,13 +4,15 @@ class WeatherDataModel {
   List<WeatherListModel>? weathers = [];
   sysModel? sys;
   MainModel? mainModels;
+  WindModel? windsModel;
 
   WeatherDataModel(
       {this.visibility,
       this.countryName,
       this.weathers,
       this.sys,
-      this.mainModels});
+      this.mainModels,
+      this.windsModel});
 
   factory WeatherDataModel.mapToModel(Map m3) {
     List weath = m3['weather'];
@@ -19,6 +21,7 @@ class WeatherDataModel {
       countryName: m3['name'],
       sys: sysModel.mapToModel(m3['sys']),
       mainModels: MainModel.mapToModel(m3['main']),
+      windsModel: WindModel.mapToModel(m3['wind']),
       weathers: weath
           .map(
             (e) => WeatherListModel.mapToModel(e),
@@ -37,6 +40,17 @@ class WeatherListModel {
     return WeatherListModel(
       main: m2['main'],
       description: m2['description'],
+    );
+  }
+}
+
+class WindModel {
+  double? windSpeed;
+  WindModel({this.windSpeed});
+
+  factory WindModel.mapToModel(Map m5) {
+    return WindModel(
+      windSpeed: m5['speed'],
     );
   }
 }
