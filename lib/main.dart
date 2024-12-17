@@ -29,10 +29,8 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         routes: AppRoutes.routes,
-        darkTheme: ThemeData(brightness: Brightness.dark),
-        // theme: ThemeData(brightness: Brightness.dark),
-        themeMode: ThemeMode.dark,
       ),
     );
   }

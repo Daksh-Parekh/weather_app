@@ -8,6 +8,10 @@ class HomeProvider with ChangeNotifier {
   List<WeatherListModel> weatherList = [];
   WeatherDataModel? weatherModel = WeatherDataModel();
 
+  List<WeatherDataModel> bookMark = [];
+
+  int weatherBookmarkInx = 0;
+
   Future<void> WeatherData(String search) async {
     ApiHelper helper = ApiHelper();
     weatherModel = await helper.getWeatherData(search);
@@ -17,14 +21,14 @@ class HomeProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  List<WeatherListModel> bookMark = [];
-  void addWeatherBookMark(WeatherListModel? m1) {
+  void addWeatherBookMark(WeatherDataModel? m1) {
     bookMark.add(m1!);
-
-    // m1!.weathers,
-    // {"d": m1?.countryName, 'ma': m1?.mainModels?.grndLevel},
-    // );
     log('${bookMark}');
+    notifyListeners();
+  }
+
+  void setWeatherBookmarkIndex(int inx) {
+    weatherBookmarkInx = inx;
     notifyListeners();
   }
 }

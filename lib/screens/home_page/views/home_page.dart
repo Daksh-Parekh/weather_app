@@ -25,178 +25,277 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     hRead = context.read<HomeProvider>();
     hWatch = context.watch<HomeProvider>();
+    String? img;
     Size size = MediaQuery.sizeOf(context);
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          children: [
-            26.h,
-            Row(
-              children: [
-                Icon(Icons.location_on_outlined),
-                10.w,
-                Text(
-                  "${hWatch.weatherModel?.countryName ?? 'Surat'}",
-                  // textAlign: TextAlign.left,
+      backgroundColor: Color(0XFF141414),
+      appBar: AppBar(
+        backgroundColor: Color(0XFF141414),
+        title: hWatch.bookMark.isNotEmpty
+            ? Row(
+                children: [
+                  Icon(
+                    Icons.location_on_outlined,
+                    color: Colors.white,
+                  ),
+                  10.w,
+                  Text(
+                    "${hWatch.weatherModel?.countryName}",
+                    style: TextStyle(color: Colors.white),
+                    // textAlign: TextAlign.left,
+                  ),
+                ],
+              )
+            : IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, AppRoutes.searchPage);
+                },
+                icon: Icon(
+                  Icons.search_rounded,
+                  color: Colors.white,
                 ),
-                Spacer(),
-                IconButton(
+              ),
+        actions: [
+          hWatch.bookMark.isNotEmpty
+              ? IconButton(
                   onPressed: () {
+                    hWatch.bookMark.removeRange(0, 1);
                     Navigator.pushNamed(context, AppRoutes.searchPage);
                   },
-                  icon: Icon(Icons.search_rounded),
-                ),
-              ],
-            ),
-            20.h,
-            Container(
-                height: size.height * 0.25,
-                width: double.infinity,
-                padding: EdgeInsets.all(10),
-                alignment: Alignment.topLeft,
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade400,
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.white.withOpacity(0.3),
-                      blurRadius: 6,
-                      offset: Offset(3, 4),
-                      spreadRadius: 2,
-                    ),
-                  ],
-                ),
-                child:
-                    // hWatch.weatherModel != null
-                    Column(
-                  children: [
-                    Text(
-                      "Today,${DateTime.now().day} ${DateTime.now().month}",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    Text(
-                      "${hWatch.bookMark.map(
-                            (e) => e.main,
-                          ).toString() ?? 'sunny'}",
-                    ),
-                    Spacer(),
-                    Text(
-                      "${hWatch.weatherModel?.mainModels?.tempMin != null ? (hWatch.weatherModel!.mainModels!.tempMin! - 273.15).toStringAsFixed(2) : '1'}\u00B0C",
-                      style:
-                          TextStyle(fontSize: 46, fontWeight: FontWeight.bold),
-                    ),
-                  ],
+                  icon: Icon(
+                    Icons.search_rounded,
+                    color: Colors.white,
+                  ),
                 )
-                // : null,
-                ),
-            14.h,
-            Container(
-              height: size.height * 0.1,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.grey[900],
-                borderRadius: BorderRadius.circular(8),
-              ),
-              padding: EdgeInsets.all(10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
+              : Text(""),
+        ],
+      ),
+      body: hWatch.bookMark.isNotEmpty
+          // ? PageView.builder(
+          //     itemCount: hWatch.bookMark.length,
+          //     itemBuilder: (context, index) {
+          //       return
+          //     },
+          //   )
+          ? ListView.builder(
+              itemCount: hWatch.bookMark.length,
+              itemBuilder: (context, index) {
+                img = hWatch.bookMark[hWatch.weatherBookmarkInx]
+                    .weathers![hWatch.weatherBookmarkInx].main;
+                return Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Column(
                     children: [
-                      Text("Feels like"),
-                      Row(
-                        children: [
-                          Icon(Icons.thermostat),
-                          Text(
-                            "${hWatch.weatherModel?.mainModels?.tempMin != null ? (hWatch.weatherModel!.mainModels!.tempMin! - 273.15).toStringAsFixed(2) : '1'}\u00B0C",
+                      //Weather Container
+                      Container(
+                          height: size.height * 0.25,
+                          width: double.infinity,
+                          padding: EdgeInsets.all(10),
+                          alignment: Alignment.topLeft,
+                          decoration: BoxDecoration(
+                            color: Color(0Xff313131),
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: img == 'Haze' ||
+                                      img == 'haze' ||
+                                      img == 'fogg' ||
+                                      img == 'Fog' ||
+                                      img == 'Smoke'
+                                  ? AssetImage("assets/images/foggy.jpg")
+                                  : img == 'snow' || img == 'Clouds'
+                                      ? AssetImage(
+                                          'assets/images/snowWeather.jpg')
+                                      : img == 'rainy' ||
+                                              img == 'cloud' ||
+                                              img == 'Rain'
+                                          ? AssetImage(
+                                              'assets/images/rainy.jpg')
+                                          : img == 'sun' || img == 'sunny'
+                                              ? AssetImage(
+                                                  'assets/images/sunnyWeather.jpg')
+                                              : img == 'suuny rainy'
+                                                  ? AssetImage(
+                                                      "assets/images/sunny&rainy.jpg")
+                                                  : img == 'Thunderstorm'
+                                                      ? AssetImage(
+                                                          'assets/images/Thunderstorm.jpg')
+                                                      : AssetImage(
+                                                          'assets/images/clear.jpg'),
+                            ),
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.white.withOpacity(0.3),
+                                blurRadius: 6,
+                                offset: Offset(2, 2),
+                                spreadRadius: 2,
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Today,${DateTime.now().day} ${DateTime.now().month}",
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.white),
+                              ),
+                              Text(
+                                "${hWatch.bookMark[hWatch.weatherBookmarkInx].weathers?[hWatch.weatherBookmarkInx].main}",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              Spacer(),
+                              Text(
+                                "${hWatch.bookMark[hWatch.weatherBookmarkInx].mainModels?.temp}\u00B0C",
+                                style: TextStyle(
+                                    fontSize: 46,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                            ],
                           )
+                          // : null,
+                          ),
+                      18.h,
+                      //Feels Like & Description
+                      Container(
+                        height: size.height * 0.1,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Color(0xff313133),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        padding: EdgeInsets.all(10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                Text(
+                                  "Feels like",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                6.h,
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.thermostat,
+                                      color: Colors.white,
+                                    ),
+                                    Text(
+                                      "${hWatch.bookMark[hWatch.weatherBookmarkInx].mainModels?.feelsLike}\u00B0C",
+                                      // "${hWatch.weatherModel?.mainModels?.feelsLike}\u00B0C",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15),
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                            Text(
+                              "${hWatch.bookMark[hWatch.weatherBookmarkInx].weathers?[hWatch.weatherBookmarkInx].description}",
+                              // "${hWatch.bookMark[index].weathers?[index].main}",
+                              style: TextStyle(color: Colors.white),
+                            )
+                          ],
+                        ),
+                      ),
+                      14.h,
+                      //Wind Spped&Humanity
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          //WindSpeed
+                          Expanded(
+                            child: Container(
+                              height: size.height * 0.12,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Color(0xff313133),
+                              ),
+                              padding: EdgeInsets.all(12),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Wind Speed",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  10.h,
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.waves_rounded,
+                                        size: 24,
+                                        color: Colors.white,
+                                      ),
+                                      10.w,
+                                      Text(
+                                        "${hWatch.bookMark[hWatch.weatherBookmarkInx].windsModel?.windSpeed}km/h",
+                                        // "${hWatch.weatherModel?.windsModel?.windSpeed}km/h",
+                                        style: TextStyle(
+                                          fontSize: 17,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          10.w,
+                          //Humidity
+                          Expanded(
+                            child: Container(
+                              height: size.height * 0.12,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Color(0xff313133),
+                              ),
+                              padding: EdgeInsets.all(12),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Humidity",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  10.h,
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.water_drop_outlined,
+                                        size: 28,
+                                        color: Colors.white,
+                                      ),
+                                      10.w,
+                                      Text(
+                                        "${hWatch.bookMark[hWatch.weatherBookmarkInx].mainModels?.huminity}",
+                                        // "${hWatch.weatherModel?.mainModels?.huminity ?? 0}%",
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ],
-                      )
+                      ),
                     ],
                   ),
-                  Text("${hWatch.bookMark.map(
-                    (e) => e.main,
-                  )}")
-                ],
-              ),
-            ),
-            14.h,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Container(
-                    height: size.height * 0.12,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.grey,
-                    ),
-                    padding: EdgeInsets.all(12),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Wind Speed"),
-                        10.h,
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.waves_rounded,
-                              size: 26,
-                            ),
-                            10.w,
-                            Text(
-                              "${hWatch.weatherModel?.windsModel?.windSpeed}km/h",
-                              style: TextStyle(
-                                fontSize: 19,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                10.w,
-                Expanded(
-                  child: Container(
-                    height: size.height * 0.12,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.grey,
-                    ),
-                    padding: EdgeInsets.all(12),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Humidity"),
-                        10.h,
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.water_drop_outlined,
-                              size: 28,
-                            ),
-                            10.w,
-                            Text(
-                              "${hWatch.weatherModel!.mainModels?.huminity ?? 0}%",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
+                );
+              },
+            )
+          : Text(""),
     );
   }
 }

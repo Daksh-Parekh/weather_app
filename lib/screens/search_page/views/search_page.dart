@@ -27,8 +27,22 @@ class _SearchPageState extends State<SearchPage> {
     hWatch = context.watch<HomeProvider>();
     hread = context.read<HomeProvider>();
     return Scaffold(
+      backgroundColor: Color(0XFF141414),
       appBar: AppBar(
-        title: Text("Search Page"),
+        backgroundColor: Color(0XFF141414),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Colors.white,
+          ),
+        ),
+        title: Text(
+          "Search Page",
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -37,9 +51,12 @@ class _SearchPageState extends State<SearchPage> {
             TextField(
               controller: searchController,
               onSubmitted: (value) {
-                context.read<HomeProvider>().WeatherData(searchController.text);
+                context.read<HomeProvider>().WeatherData(value);
               },
+              style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
+                hintText: "Enter country",
+                hintStyle: TextStyle(color: Colors.grey.shade800),
                 border: OutlineInputBorder(),
                 // enabled: true,
               ),
@@ -50,14 +67,15 @@ class _SearchPageState extends State<SearchPage> {
                 itemCount: context.watch<HomeProvider>().weatherList.length,
                 itemBuilder: (context, index) {
                   return Container(
-                    height: 80,
+                    height: 75,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Colors.grey[800],
+                      color: Color(0xff313133),
                       borderRadius: BorderRadius.circular(10),
                       boxShadow: [
                         BoxShadow(
-                          blurRadius: 5,
+                          blurRadius: 6,
+                          spreadRadius: 2,
                           color: Colors.white24,
                           offset: Offset(4, 4),
                         ),
@@ -68,20 +86,31 @@ class _SearchPageState extends State<SearchPage> {
                       //     ? Image.network('')
                       //     : hWatch.weatherList[index].main == 'sunny||hazy'
                       //         ? Image.network('')
+
                       //         : Image.network(''),
                       title: Text(
-                          "${context.watch<HomeProvider>().weatherList[index].main}"),
+                        "${context.watch<HomeProvider>().weatherModel!.countryName}",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+
                       subtitle: Text(
-                          "${context.watch<HomeProvider>().weatherModel!.countryName}"),
+                        "${context.watch<HomeProvider>().weatherList[index].main}",
+                        style: TextStyle(color: Colors.white, fontSize: 14),
+                      ),
                       // trailing: Text(
                       //     "${(context.watch<HomeProvider>().weatherModel!.mainModels!.tempMin! - 273.15).toStringAsFixed(2)}"),
                       trailing: IconButton(
                         onPressed: () {
-                          hread.addWeatherBookMark(hWatch.weatherList[index]);
-                          // Navigator.pop(context, AppRoutes.homePage);
+                          hread.setWeatherBookmarkIndex(index);
+                          hread.addWeatherBookMark(hWatch.weatherModel);
+                          Navigator.pop(context);
                           // arguments: hWatch.bookMark);
                         },
-                        icon: Icon(Icons.bookmark_add_rounded),
+                        icon: Icon(
+                          Icons.bookmark_add_rounded,
+                          size: 30,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   );
