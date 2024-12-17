@@ -12,18 +12,18 @@ class HomeProvider with ChangeNotifier {
 
   int weatherBookmarkInx = 0;
 
-  Future<void> WeatherData(String search) async {
+  Future<void> weatherData(String search) async {
     ApiHelper helper = ApiHelper();
     weatherModel = await helper.getWeatherData(search);
 
     weatherList = weatherModel?.weathers ?? [];
-    log('${weatherList}');
+    log('$weatherList');
     notifyListeners();
   }
 
   void addWeatherBookMark(WeatherDataModel? m1) {
     bookMark.add(m1!);
-    log('${bookMark}');
+    log('$bookMark');
     notifyListeners();
   }
 

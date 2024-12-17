@@ -2,7 +2,7 @@ class WeatherDataModel {
   int? visibility;
   String? countryName;
   List<WeatherListModel>? weathers = [];
-  sysModel? sys;
+  SysModel? sys;
   MainModel? mainModels;
   WindModel? windsModel;
 
@@ -19,7 +19,7 @@ class WeatherDataModel {
     return WeatherDataModel(
       visibility: m3['visibility'],
       countryName: m3['name'],
-      sys: sysModel.mapToModel(m3['sys']),
+      sys: SysModel.mapToModel(m3['sys']),
       mainModels: MainModel.mapToModel(m3['main']),
       windsModel: WindModel.mapToModel(m3['wind']),
       weathers: weath
@@ -83,13 +83,13 @@ class MainModel {
   }
 }
 
-class sysModel {
+class SysModel {
   String? country;
-  int? Sunrise;
+  int? sunrise;
 
-  sysModel({this.country, this.Sunrise});
+  SysModel({this.country, this.sunrise});
 
-  factory sysModel.mapToModel(Map m1) {
-    return sysModel(country: m1['country'], Sunrise: m1['sunrise']);
+  factory SysModel.mapToModel(Map m1) {
+    return SysModel(country: m1['country'], sunrise: m1['sunrise']);
   }
 }

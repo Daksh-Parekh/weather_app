@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app/screens/home_page/model/weather_model.dart';
 import 'package:weather_app/screens/home_page/provider/home_provider.dart';
 import 'package:weather_app/utils/extension/app_extension.dart';
 import 'package:weather_app/utils/routes/app_routes.dart';
@@ -13,13 +12,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // TextEditingController searchController = TextEditingController();
-  // @override
-  // void initState() {
-  //   context.read<HomeProvider>().WeatherData('');
-  //   super.initState();
-  // }
-
   late HomeProvider hRead, hWatch;
   @override
   Widget build(BuildContext context) {
@@ -28,20 +20,20 @@ class _HomePageState extends State<HomePage> {
     String? img;
     Size size = MediaQuery.sizeOf(context);
     return Scaffold(
-      backgroundColor: Color(0XFF141414),
+      backgroundColor: const Color(0XFF141414),
       appBar: AppBar(
-        backgroundColor: Color(0XFF141414),
+        backgroundColor: const Color(0XFF141414),
         title: hWatch.bookMark.isNotEmpty
             ? Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.location_on_outlined,
                     color: Colors.white,
                   ),
                   10.w,
                   Text(
                     "${hWatch.weatherModel?.countryName}",
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                     // textAlign: TextAlign.left,
                   ),
                 ],
@@ -50,7 +42,7 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () {
                   Navigator.pushNamed(context, AppRoutes.searchPage);
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.search_rounded,
                   color: Colors.white,
                 ),
@@ -62,12 +54,12 @@ class _HomePageState extends State<HomePage> {
                     hWatch.bookMark.removeRange(0, 1);
                     Navigator.pushNamed(context, AppRoutes.searchPage);
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.search_rounded,
                     color: Colors.white,
                   ),
                 )
-              : Text(""),
+              : const Text(""),
         ],
       ),
       body: hWatch.bookMark.isNotEmpty
@@ -83,17 +75,17 @@ class _HomePageState extends State<HomePage> {
                 img = hWatch.bookMark[hWatch.weatherBookmarkInx]
                     .weathers![hWatch.weatherBookmarkInx].main;
                 return Padding(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   child: Column(
                     children: [
                       //Weather Container
                       Container(
                           height: size.height * 0.25,
                           width: double.infinity,
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           alignment: Alignment.topLeft,
                           decoration: BoxDecoration(
-                            color: Color(0Xff313131),
+                            color: const Color(0Xff313131),
                             image: DecorationImage(
                               fit: BoxFit.cover,
                               image: img == 'Haze' ||
@@ -101,25 +93,25 @@ class _HomePageState extends State<HomePage> {
                                       img == 'fogg' ||
                                       img == 'Fog' ||
                                       img == 'Smoke'
-                                  ? AssetImage("assets/images/foggy.jpg")
+                                  ? const AssetImage("assets/images/foggy.jpg")
                                   : img == 'snow' || img == 'Clouds'
-                                      ? AssetImage(
+                                      ? const AssetImage(
                                           'assets/images/snowWeather.jpg')
                                       : img == 'rainy' ||
                                               img == 'cloud' ||
                                               img == 'Rain'
-                                          ? AssetImage(
+                                          ? const AssetImage(
                                               'assets/images/rainy.jpg')
                                           : img == 'sun' || img == 'sunny'
-                                              ? AssetImage(
+                                              ? const AssetImage(
                                                   'assets/images/sunnyWeather.jpg')
                                               : img == 'suuny rainy'
-                                                  ? AssetImage(
+                                                  ? const AssetImage(
                                                       "assets/images/sunny&rainy.jpg")
                                                   : img == 'Thunderstorm'
-                                                      ? AssetImage(
+                                                      ? const AssetImage(
                                                           'assets/images/Thunderstorm.jpg')
-                                                      : AssetImage(
+                                                      : const AssetImage(
                                                           'assets/images/clear.jpg'),
                             ),
                             borderRadius: BorderRadius.circular(15),
@@ -127,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                               BoxShadow(
                                 color: Colors.white.withOpacity(0.3),
                                 blurRadius: 6,
-                                offset: Offset(2, 2),
+                                offset: const Offset(2, 2),
                                 spreadRadius: 2,
                               ),
                             ],
@@ -137,17 +129,17 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               Text(
                                 "Today,${DateTime.now().day} ${DateTime.now().month}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 16, color: Colors.white),
                               ),
                               Text(
                                 "${hWatch.bookMark[hWatch.weatherBookmarkInx].weathers?[hWatch.weatherBookmarkInx].main}",
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               Text(
                                 "${hWatch.bookMark[hWatch.weatherBookmarkInx].mainModels?.temp}\u00B0C",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 46,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white),
@@ -162,30 +154,30 @@ class _HomePageState extends State<HomePage> {
                         height: size.height * 0.1,
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          color: Color(0xff313133),
+                          color: const Color(0xff313133),
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Column(
                               children: [
-                                Text(
+                                const Text(
                                   "Feels like",
                                   style: TextStyle(color: Colors.white),
                                 ),
                                 6.h,
                                 Row(
                                   children: [
-                                    Icon(
+                                    const Icon(
                                       Icons.thermostat,
                                       color: Colors.white,
                                     ),
                                     Text(
                                       "${hWatch.bookMark[hWatch.weatherBookmarkInx].mainModels?.feelsLike}\u00B0C",
                                       // "${hWatch.weatherModel?.mainModels?.feelsLike}\u00B0C",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 15),
@@ -197,7 +189,7 @@ class _HomePageState extends State<HomePage> {
                             Text(
                               "${hWatch.bookMark[hWatch.weatherBookmarkInx].weathers?[hWatch.weatherBookmarkInx].description}",
                               // "${hWatch.bookMark[index].weathers?[index].main}",
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                             )
                           ],
                         ),
@@ -213,20 +205,20 @@ class _HomePageState extends State<HomePage> {
                               height: size.height * 0.12,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: Color(0xff313133),
+                                color: const Color(0xff313133),
                               ),
-                              padding: EdgeInsets.all(12),
+                              padding: const EdgeInsets.all(12),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Wind Speed",
                                     style: TextStyle(color: Colors.white),
                                   ),
                                   10.h,
                                   Row(
                                     children: [
-                                      Icon(
+                                      const Icon(
                                         Icons.waves_rounded,
                                         size: 24,
                                         color: Colors.white,
@@ -235,7 +227,7 @@ class _HomePageState extends State<HomePage> {
                                       Text(
                                         "${hWatch.bookMark[hWatch.weatherBookmarkInx].windsModel?.windSpeed}km/h",
                                         // "${hWatch.weatherModel?.windsModel?.windSpeed}km/h",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 17,
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
@@ -254,20 +246,20 @@ class _HomePageState extends State<HomePage> {
                               height: size.height * 0.12,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: Color(0xff313133),
+                                color: const Color(0xff313133),
                               ),
-                              padding: EdgeInsets.all(12),
+                              padding: const EdgeInsets.all(12),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Humidity",
                                     style: TextStyle(color: Colors.white),
                                   ),
                                   10.h,
                                   Row(
                                     children: [
-                                      Icon(
+                                      const Icon(
                                         Icons.water_drop_outlined,
                                         size: 28,
                                         color: Colors.white,
@@ -276,7 +268,7 @@ class _HomePageState extends State<HomePage> {
                                       Text(
                                         "${hWatch.bookMark[hWatch.weatherBookmarkInx].mainModels?.huminity}",
                                         // "${hWatch.weatherModel?.mainModels?.huminity ?? 0}%",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 20,
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
@@ -290,48 +282,36 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
+                      14.h,
+                      //Sunrise Time
+                      // Container(
+                      //   height: size.height * 0.1,
+                      //   width: double.infinity,
+                      //   color: Colors.green,
+                      //   child: Text(
+                      //       "${DateTime.fromMicrosecondsSinceEpoch((hWatch.bookMark[hWatch.weatherBookmarkInx].sys!.Sunrise!) * 1000).hour} : ${DateTime.fromMicrosecondsSinceEpoch((hWatch.bookMark[hWatch.weatherBookmarkInx].sys!.Sunrise!) * 1000).minute} am"),
+                      // ),
                     ],
                   ),
                 );
               },
             )
-          : Text(""),
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  "Please Select Country",
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Image.asset(
+                  'assets/images/country_not_select.png',
+                ),
+              ],
+            ),
     );
   }
 }
-
-// body: Padding(
-//   padding: const EdgeInsets.all(12.0),
-//   child: Column(
-//     children: [
-//       Expanded(
-//         child: ListView.builder(
-//           itemCount: hWatch.bookMark.length,
-//           itemBuilder: (context, index) {
-//             return ListTile(
-//               // leading: hWatch.weatherList[index].main == 'rain'
-//               //     ? Image.network('')
-//               //     : hWatch.weatherList[index].main == 'sunny||hazy'
-//               //         ? Image.network('')
-//               //         : Image.network(''),
-//               title: Text("${hWatch.bookMark[index].main}"),
-//               subtitle: Text("${hWatch.weatherModel?.countryName ?? ''}"),
-//               // "${context.watch<HomeProvider>().weatherList[index].main}"),
-//               // subtitle: Text(
-//               // "${context.watch<HomeProvider>().weatherModel!.countryName}"),
-//               // trailing: Text(
-//               // "${(context.watch<HomeProvider>().weatherModel!.mainModels!.tempMin! - 273.15).toStringAsFixed(2)}"),
-//             );
-//           },
-//         ),
-//       ),
-//       IconButton(
-//         onPressed: () {
-//           hWatch.bookMark.clear();
-//           Navigator.pushNamed(context, AppRoutes.searchPage);
-//         },
-//         icon: Icon(Icons.search),
-//       ),
-//     ],
-//   ),
-// ),

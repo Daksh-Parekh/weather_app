@@ -7,7 +7,7 @@ class AppRoutes {
   static String searchPage = 'search_page';
 
   static Map<String, Widget Function(BuildContext)> routes = {
-    homePage: (context) => HomePage(),
-    searchPage: (context) => SearchPage(),
+    homePage: (context) => const HomePage(),
+    searchPage: (context) => const SearchPage(),
   };
 }
