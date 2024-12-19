@@ -4,13 +4,6 @@ import 'package:weather_app/screens/home_page/provider/home_provider.dart';
 import 'package:weather_app/utils/routes/app_routes.dart';
 
 void main() {
-  // SystemChrome.setSystemUIOverlayStyle(
-  //   // SystemUiOverlayStyle.dark,
-  //   SystemUiOverlayStyle(
-  //     statusBarBrightness: Brightness.dark,
-  //     statusBarColor: Colors.white,
-  //   ),
-  // );
   runApp(const MyApp());
 }
 

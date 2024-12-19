@@ -94,7 +94,7 @@ class _SearchPageState extends State<SearchPage> {
                             ),
 
                             subtitle: Text(
-                              "${context.watch<HomeProvider>().weatherList[index].main}",
+                              "${context.watch<HomeProvider>().weatherModel?.mainModels?.temp}",
                               style: const TextStyle(
                                   color: Colors.white, fontSize: 14),
                             ),

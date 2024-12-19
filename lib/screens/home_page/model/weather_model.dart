@@ -85,11 +85,12 @@ class MainModel {
 
 class SysModel {
   String? country;
-  int? sunrise;
+  int? sunrise, sunset;
 
-  SysModel({this.country, this.sunrise});
+  SysModel({this.country, this.sunrise, this.sunset});
 
   factory SysModel.mapToModel(Map m1) {
-    return SysModel(country: m1['country'], sunrise: m1['sunrise']);
+    return SysModel(
+        country: m1['country'], sunrise: m1['sunrise'], sunset: m1['sunset']);
   }
 }

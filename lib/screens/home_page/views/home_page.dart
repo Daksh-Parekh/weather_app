@@ -154,9 +154,19 @@ class _HomePageState extends State<HomePage> {
                         height: size.height * 0.1,
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          color: const Color(0xff313133),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
+                            color: const Color(0xff313133),
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Colors.grey.withOpacity(0.3),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.white.withOpacity(0.3),
+                                blurRadius: 5,
+                                offset: const Offset(3, 2.5),
+                                // spreadRadius: 2,
+                              ),
+                            ]),
                         padding: const EdgeInsets.all(10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -206,6 +216,17 @@ class _HomePageState extends State<HomePage> {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: const Color(0xff313133),
+                                border: Border.all(
+                                  color: Colors.grey.withOpacity(0.3),
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.white.withOpacity(0.3),
+                                    blurRadius: 5,
+                                    offset: const Offset(3, 2.5),
+                                    // spreadRadius: 2,
+                                  ),
+                                ],
                               ),
                               padding: const EdgeInsets.all(12),
                               child: Column(
@@ -247,8 +268,19 @@ class _HomePageState extends State<HomePage> {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: const Color(0xff313133),
+                                border: Border.all(
+                                  color: Colors.grey.withOpacity(0.3),
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.white.withOpacity(0.3),
+                                    blurRadius: 5,
+                                    offset: const Offset(3, 2.5),
+                                    // spreadRadius: 2,
+                                  ),
+                                ],
                               ),
-                              padding: const EdgeInsets.all(12),
+                              padding: const EdgeInsets.all(10),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -266,7 +298,7 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       10.w,
                                       Text(
-                                        "${hWatch.bookMark[hWatch.weatherBookmarkInx].mainModels?.huminity}",
+                                        "${hWatch.bookMark[hWatch.weatherBookmarkInx].mainModels?.huminity}%",
                                         // "${hWatch.weatherModel?.mainModels?.huminity ?? 0}%",
                                         style: const TextStyle(
                                           fontSize: 20,
@@ -283,7 +315,130 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                       14.h,
-                      //Sunrise Time
+                      //Sunrise and sunset
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          //Sunrise
+                          Expanded(
+                            child: Container(
+                              height: size.height * 0.12,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: const Color(0xff313133),
+                                border: Border.all(
+                                  color: Colors.grey.withOpacity(0.3),
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.white.withOpacity(0.3),
+                                    blurRadius: 5,
+                                    offset: const Offset(3, 2.5),
+                                    // spreadRadius: 2,
+                                  ),
+                                ],
+                              ),
+                              padding: const EdgeInsets.all(12),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Sunrise Time",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  10.h,
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.wb_sunny_rounded,
+                                        size: 24,
+                                        color: Colors.yellow,
+                                      ),
+                                      10.w,
+                                      Text(
+                                        "${DateTime.fromMicrosecondsSinceEpoch((hWatch.bookMark[hWatch.weatherBookmarkInx].sys!.sunrise!) * 1000).hour} : ${DateTime.fromMicrosecondsSinceEpoch((hWatch.bookMark[hWatch.weatherBookmarkInx].sys!.sunrise!) * 1000).minute} am",
+                                        style: const TextStyle(
+                                          fontSize: 17,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          10.w,
+                          //sunset
+                          Expanded(
+                            child: Container(
+                              height: size.height * 0.12,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: const Color(0xff313133),
+                                border: Border.all(
+                                  color: Colors.grey.withOpacity(0.3),
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.white.withOpacity(0.3),
+                                    blurRadius: 5,
+                                    offset: const Offset(3, 2.5),
+                                    // spreadRadius: 2,
+                                  ),
+                                ],
+                              ),
+                              padding: const EdgeInsets.all(10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Sunset Time",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  10.h,
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.wb_twilight_rounded,
+                                        size: 28,
+                                        color: Colors.orange,
+                                      ),
+                                      10.w,
+                                      Text(
+                                        "${DateTime.fromMicrosecondsSinceEpoch((hWatch.bookMark[hWatch.weatherBookmarkInx].sys!.sunset!) * 1000).hour} : ${DateTime.fromMicrosecondsSinceEpoch((hWatch.bookMark[hWatch.weatherBookmarkInx].sys!.sunset!) * 1000).minute} pm",
+                                        style: const TextStyle(
+                                          fontSize: 17,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      // ArcProgressBar(
+                      //     percentage: 10,
+                      //     arcThickness: 5,
+                      //     innerPadding: 16,
+                      //     animateFromLastPercent: true,
+                      //     handleSize: 10,
+                      //     backgroundColor: Colors.black12,
+                      //     foregroundColor: Colors.black),
+                      // Icon(
+                      //   Icons.wb_twilight_rounded,
+                      //   color: Colors.white,
+                      // ),
+                      // Icon(
+                      //   Icons.arrow_upward_rounded,
+                      //   color: Colors.white,
+                      // ),
+                      // //Sunrise Time
                       // Container(
                       //   height: size.height * 0.1,
                       //   width: double.infinity,
