@@ -14,13 +14,12 @@ A professional Weather App built using Flutter that provides dynamic weather inf
 
 | Weather Display | Error Display |
 |-----------------|---------------|
-| ![Weather UI](assets/weather_ui.png) | ![Error UI](assets/error_ui.png) |
+|<img src="https://github.com/user-attachments/assets/cdd747b4-e561-4ca3-b5e5-689e690c6558" width="300px">|<img src="https://github.com/user-attachments/assets/213a538f-42d9-440c-b197-173bc3af77a6" width="300px">|
+|<img src="https://github.com/user-attachments/assets/44b75ca4-400d-4cfc-9f18-d9784db5334a" width="300px">|<img src="https://github.com/user-attachments/assets/37d4361d-468d-4683-9d1f-a5c65b358cd8" width="300px">|
 
-## Video Demo
+## Screen Recording*
 
-Check out the video demonstration of the Weather App:
-
-[![Watch the Demo](assets/video_thumbnail.png)](https://youtu.be/your_video_link)
+https://github.com/user-attachments/assets/d15e5bc5-4401-4d7b-b7d6-609519bffb31
 
 ## Tech Stack
 
