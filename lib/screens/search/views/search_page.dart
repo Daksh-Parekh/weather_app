@@ -1,6 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app/screens/home_page/provider/home_provider.dart';
+import 'package:weather_app/screens/home/provider/home_provider.dart';
 import 'package:weather_app/utils/extension/app_extension.dart';
 
 class SearchPage extends StatefulWidget {
@@ -12,11 +14,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   late HomeProvider hread, hWatch;
-  @override
-  void initState() {
-    context.read<HomeProvider>().weatherData('');
-    super.initState();
-  }
+  String? cityName;
 
   TextEditingController searchController = TextEditingController();
   @override
@@ -48,7 +46,9 @@ class _SearchPageState extends State<SearchPage> {
             TextField(
               controller: searchController,
               onSubmitted: (value) {
-                context.read<HomeProvider>().weatherData(value);
+                hread.weatherData(value);
+                cityName = value;
+                log('$cityName');
               },
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
@@ -62,8 +62,7 @@ class _SearchPageState extends State<SearchPage> {
             hWatch.weatherModel != null
                 ? Expanded(
                     child: ListView.builder(
-                      itemCount:
-                          context.watch<HomeProvider>().weatherList.length,
+                      itemCount: hWatch.weatherList.length,
                       itemBuilder: (context, index) {
                         return Container(
                           height: 75,
@@ -81,27 +80,21 @@ class _SearchPageState extends State<SearchPage> {
                             ],
                           ),
                           child: ListTile(
-                            // leading: hWatch.weatherList[index].main == 'rain'
-                            //     ? Image.network('')
-                            //     : hWatch.weatherList[index].main == 'sunny||hazy'
-                            //         ? Image.network('')
-
-                            //         : Image.network(''),
                             title: Text(
-                              "${context.watch<HomeProvider>().weatherModel!.countryName}",
+                              "${hWatch.weatherModel!.countryName}",
                               style: const TextStyle(
                                   color: Colors.white, fontSize: 18),
                             ),
-
                             subtitle: Text(
-                              "${context.watch<HomeProvider>().weatherModel?.mainModels?.temp}",
+                              "${hWatch.weatherModel?.mainModels?.temp}",
                               style: const TextStyle(
                                   color: Colors.white, fontSize: 14),
                             ),
                             trailing: IconButton(
                               onPressed: () {
-                                hread.setWeatherBookmarkIndex(index);
-                                hread.addWeatherBookMark(hWatch.weatherModel);
+                                // hread.setWeatherBookmarkIndex(index);
+                                hread.addWeatherBookMark(
+                                    hWatch.weatherModel, searchController.text);
                                 Navigator.pop(context);
                               },
                               icon: const Icon(

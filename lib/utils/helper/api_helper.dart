@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:http/http.dart' as http;
-import 'package:weather_app/screens/home_page/model/weather_model.dart';
+import 'package:weather_app/screens/home/model/weather_model.dart';
 
 class ApiHelper {
   Future<WeatherDataModel?> getWeatherData(String search) async {
