@@ -18,6 +18,15 @@ class _SearchPageState extends State<SearchPage> {
 
   TextEditingController searchController = TextEditingController();
   @override
+  void initState() {
+    if (context.read<HomeProvider>().searchedCity != null &&
+        context.read<HomeProvider>().searchedCity!.isNotEmpty) {
+      context.read<HomeProvider>().getWeatherData();
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     hWatch = context.watch<HomeProvider>();
     hread = context.read<HomeProvider>();
@@ -28,6 +37,7 @@ class _SearchPageState extends State<SearchPage> {
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
+            hWatch.searchWeatherModel = null;
           },
           icon: const Icon(
             Icons.arrow_back_ios_new_rounded,
@@ -46,7 +56,7 @@ class _SearchPageState extends State<SearchPage> {
             TextField(
               controller: searchController,
               onSubmitted: (value) {
-                hread.weatherData(value);
+                hread.searchesData(value);
                 cityName = value;
                 log('$cityName');
               },
@@ -59,61 +69,140 @@ class _SearchPageState extends State<SearchPage> {
               ),
             ),
             20.h,
-            hWatch.weatherModel != null
+            hWatch.searchWeatherModel == null
                 ? Expanded(
-                    child: ListView.builder(
-                      itemCount: hWatch.weatherList.length,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          height: 75,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: const Color(0xff313133),
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: const [
-                              BoxShadow(
-                                blurRadius: 6,
-                                spreadRadius: 2,
-                                color: Colors.white24,
-                                offset: Offset(4, 4),
+                    child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Please Select Country",
+                        // : "Country Not Found",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      50.h,
+                      const Icon(
+                        Icons.dangerous_rounded,
+                        color: Colors.redAccent,
+                        size: 150,
+                      ),
+                    ],
+                  ))
+                : Stack(
+                    alignment: const Alignment(1, -0.5),
+                    children: [
+                      Container(
+                        height: 200,
+                        width: 300,
+                        child: Stack(
+                          alignment: Alignment.bottomLeft,
+                          children: [
+                            Expanded(
+                                child: Image.asset('assets/images/rect2.png')),
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "${hWatch.searchWeatherModel?.mainModels?.temp}",
+                                    style: TextStyle(
+                                        color: Colors.white.withOpacity(0.7),
+                                        fontSize: 15),
+                                  ),
+                                  6.h,
+                                  Text(
+                                    "${hWatch.searchWeatherModel?.countryName}",
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                          child: ListTile(
-                            title: Text(
-                              "${hWatch.weatherModel!.countryName}",
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 18),
-                            ),
-                            subtitle: Text(
-                              "${hWatch.weatherModel?.mainModels?.temp}",
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 14),
-                            ),
-                            trailing: IconButton(
-                              onPressed: () {
-                                // hread.setWeatherBookmarkIndex(index);
-                                hread.addWeatherBookMark(
-                                    hWatch.weatherModel, searchController.text);
-                                Navigator.pop(context);
-                              },
-                              icon: const Icon(
-                                Icons.bookmark_add_rounded,
-                                size: 30,
-                                color: Colors.white,
-                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Container(
+                            height: 160,
+                            width: 160,
+                            alignment: const Alignment(0, -0.2),
+                            child: Image.asset(
+                              hWatch.iconPath ?? '',
                             ),
                           ),
-                        );
-                      },
-                    ),
+                          IconButton(
+                            onPressed: () {
+                              // hread.setWeatherBookmarkIndex(index);
+                              hread.addWeatherBookMark(
+                                  hWatch.searchWeatherModel,
+                                  searchController.text);
+                              Navigator.pop(context);
+                            },
+                            icon: const Icon(
+                              Icons.bookmark_add_rounded,
+                              size: 30,
+                              color: Colors.white,
+                            ),
+                          ),
+                          30.h,
+                        ],
+                      ),
+                    ],
                   )
-                : Expanded(
-                    child: Image.asset('assets/images/errors.png'),
-                  ),
           ],
         ),
       ),
     );
   }
 }
+
+// Container(
+                  //   height: 75,
+                  //   width: double.infinity,
+                  //   decoration: BoxDecoration(
+                  //     color: const Color(0xff313133),
+                  //     borderRadius: BorderRadius.circular(10),
+                  //     boxShadow: const [
+                  //       BoxShadow(
+                  //         blurRadius: 6,
+                  //         spreadRadius: 2,
+                  //         color: Colors.white24,
+                  //         offset: Offset(4, 4),
+                  //       ),
+                  //     ],
+                  //   ),
+                  //   child: ListTile(
+                  //     title: Text(
+                  //       "${hWatch.searchWeatherModel!.countryName}",
+                  //       style:
+                  //           const TextStyle(color: Colors.white, fontSize: 18),
+                  //     ),
+                  //     subtitle: Text(
+                  //       "${hWatch.searchWeatherModel?.mainModels?.temp}",
+                  //       style:
+                  //           const TextStyle(color: Colors.white, fontSize: 14),
+                  //     ),
+                  //     trailing: IconButton(
+                  //       onPressed: () {
+                  //         // hread.setWeatherBookmarkIndex(index);
+                  //         hread.addWeatherBookMark(
+                  //             hWatch.searchWeatherModel, searchController.text);
+                  //         Navigator.pop(context);
+                  //       },
+                  //       icon: const Icon(
+                  //         Icons.bookmark_add_rounded,
+                  //         size: 30,
+                  //         color: Colors.white,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // )
+                

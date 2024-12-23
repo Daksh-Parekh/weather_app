@@ -32,20 +32,22 @@ class WeatherDataModel {
 }
 
 class WeatherListModel {
-  String? main, description;
+  String? main, description, iconCode;
 
-  WeatherListModel({this.main, this.description});
+  WeatherListModel({this.main, this.description, this.iconCode});
 
   factory WeatherListModel.mapToModel(Map m2) {
     return WeatherListModel(
       main: m2['main'],
       description: m2['description'],
+      iconCode: m2['icon'],
     );
   }
 }
 
 class WindModel {
   double? windSpeed;
+
   WindModel({this.windSpeed});
 
   factory WindModel.mapToModel(Map m5) {
@@ -56,8 +58,9 @@ class WindModel {
 }
 
 class MainModel {
-  double? temp, feelsLike, tempMin, tempMax;
+  double? temp, tempMin, tempMax;
   int? pressure, huminity, seaLevel, grndLevel;
+  num? feelsLike;
 
   MainModel(
       {this.temp,
