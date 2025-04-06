@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app/screens/home/provider/home_provider.dart';
-import 'package:weather_app/utils/routes/app_routes.dart';
+import 'package:weather_app/screens/home/provider/homeProvider.dart';
+import 'package:weather_app/utils/routes/appRoutes.dart';
 
 void main() {
   runApp(const MyApp());

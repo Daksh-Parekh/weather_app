@@ -1,26 +1,30 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:weather_app/screens/home/model/weather_model.dart';
-import 'package:weather_app/utils/helper/api_helper.dart';
-import 'package:weather_app/utils/helper/shr_helper.dart';
+import 'package:weather_app/screens/home/model/weatherModel.dart';
+import 'package:weather_app/utils/helper/APIHelper.dart';
+import 'package:weather_app/utils/helper/shrHelper.dart';
 
 class HomeProvider with ChangeNotifier {
   List<WeatherListModel> weatherList = [];
   List<WeatherListModel> searchWeatherList = [];
+  List<WeatherDataModel> bookMarkCities = [];
   WeatherDataModel? weatherModel = WeatherDataModel();
   WeatherDataModel? searchWeatherModel;
-  List<WeatherDataModel> bookMark = [];
   String? searchedCity;
   int arcInidicator = (DateTime.now().hour % 12) * 10;
   String? searchedIcons;
+  bool isProgressOn = true;
 
   Future<void> initMethod() async {
+    isProgressOn = true;
     await getWeatherData();
 
     if (searchedCity != null) {
       await weatherData();
+      await fetchBookmarkWeatherCities();
     }
+    isProgressOn = false;
   }
 
   Future<void> weatherData() async {
@@ -32,6 +36,21 @@ class HomeProvider with ChangeNotifier {
     searchedIcons = weatherList.first.iconCode;
     iconPath = searchIcons(searchedIcons ?? '');
     log('$weatherList');
+    notifyListeners();
+  }
+
+  Future<void> fetchBookmarkWeatherCities() async {
+    ApiHelper helper = ApiHelper();
+    bookMarkCities.clear();
+    books.map(
+      (e) async {
+        var bookmarkWeatherData = await helper.getWeatherData(e);
+        if (bookmarkWeatherData != null) {
+          bookMarkCities.add(bookmarkWeatherData!);
+        }
+      },
+    ).toList();
+
     notifyListeners();
   }
 
@@ -54,21 +73,29 @@ class HomeProvider with ChangeNotifier {
   //   log('City searched: $searchedCity');
   //   notifyListeners();
   // }
-
-  Future<void> addWeatherBookMark(WeatherDataModel? m1, String? city) async {
-    bookMark.add(m1!);
+  List<String> books = [];
+  Future<void> addWeatherBookMark(String city) async {
+    if (!books.contains(city)) {
+      books.add(city);
+      ShrHelper helper = ShrHelper();
+      helper.setBookmarkedCity(
+        city: books,
+        searchCity: city,
+      );
+    } else {
+      log('Already added');
+    }
     searchedCity = city;
-    ShrHelper helper = ShrHelper();
-    helper.setBookmarkedCity(city!);
-    // print('========================$searchedCity');
     await weatherData();
-    log('$bookMark');
+    await fetchBookmarkWeatherCities();
+
     notifyListeners();
   }
 
   Future<void> getWeatherData() async {
     ShrHelper helper = ShrHelper();
     searchedCity = await helper.getBookmarkedCity();
+    books = await helper.getBookmarkedCityL() ?? [];
     notifyListeners();
   }
 

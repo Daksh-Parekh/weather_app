@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/utils/extension/app_extension.dart';
+import 'package:weather_app/utils/extension/sizeBoxExtension.dart';
 
 Widget rowsContainer(
     {required String key,

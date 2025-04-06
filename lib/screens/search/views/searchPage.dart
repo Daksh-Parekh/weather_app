@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app/screens/home/provider/home_provider.dart';
-import 'package:weather_app/utils/extension/app_extension.dart';
+import 'package:weather_app/screens/home/provider/homeProvider.dart';
+import 'package:weather_app/utils/extension/sizeBoxExtension.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -99,8 +99,7 @@ class _SearchPageState extends State<SearchPage> {
                         child: Stack(
                           alignment: Alignment.bottomLeft,
                           children: [
-                            Expanded(
-                                child: Image.asset('assets/images/rect2.png')),
+                            Image.asset('assets/images/rect2.png'),
                             Padding(
                               padding: const EdgeInsets.all(16.0),
                               child: Column(
@@ -108,7 +107,7 @@ class _SearchPageState extends State<SearchPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "${hWatch.searchWeatherModel?.mainModels?.temp}",
+                                    "${hWatch.searchWeatherModel?.mainModels?.temp}\u2103",
                                     style: TextStyle(
                                         color: Colors.white.withOpacity(0.7),
                                         fontSize: 15),
@@ -141,9 +140,10 @@ class _SearchPageState extends State<SearchPage> {
                           IconButton(
                             onPressed: () {
                               // hread.setWeatherBookmarkIndex(index);
-                              hread.addWeatherBookMark(
-                                  hWatch.searchWeatherModel,
-                                  searchController.text);
+                              String searchCity = searchController.text;
+                              log(searchCity);
+                              hread.addWeatherBookMark(searchCity);
+
                               Navigator.pop(context);
                             },
                             icon: const Icon(
@@ -163,46 +163,3 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 }
-
-// Container(
-                  //   height: 75,
-                  //   width: double.infinity,
-                  //   decoration: BoxDecoration(
-                  //     color: const Color(0xff313133),
-                  //     borderRadius: BorderRadius.circular(10),
-                  //     boxShadow: const [
-                  //       BoxShadow(
-                  //         blurRadius: 6,
-                  //         spreadRadius: 2,
-                  //         color: Colors.white24,
-                  //         offset: Offset(4, 4),
-                  //       ),
-                  //     ],
-                  //   ),
-                  //   child: ListTile(
-                  //     title: Text(
-                  //       "${hWatch.searchWeatherModel!.countryName}",
-                  //       style:
-                  //           const TextStyle(color: Colors.white, fontSize: 18),
-                  //     ),
-                  //     subtitle: Text(
-                  //       "${hWatch.searchWeatherModel?.mainModels?.temp}",
-                  //       style:
-                  //           const TextStyle(color: Colors.white, fontSize: 14),
-                  //     ),
-                  //     trailing: IconButton(
-                  //       onPressed: () {
-                  //         // hread.setWeatherBookmarkIndex(index);
-                  //         hread.addWeatherBookMark(
-                  //             hWatch.searchWeatherModel, searchController.text);
-                  //         Navigator.pop(context);
-                  //       },
-                  //       icon: const Icon(
-                  //         Icons.bookmark_add_rounded,
-                  //         size: 30,
-                  //         color: Colors.white,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // )
-                

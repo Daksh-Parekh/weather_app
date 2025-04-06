@@ -58,9 +58,9 @@ class WindModel {
 }
 
 class MainModel {
-  double? temp, tempMin, tempMax;
+  // double? ;
   int? pressure, huminity, seaLevel, grndLevel;
-  num? feelsLike;
+  num? feelsLike, temp, tempMin, tempMax;
 
   MainModel(
       {this.temp,
