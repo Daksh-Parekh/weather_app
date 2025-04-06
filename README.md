@@ -10,16 +10,22 @@ A professional Weather App built using Flutter that provides dynamic weather inf
 - **API Integration:** Real-time weather data fetched via an external API.
 - **State Management:** Efficiently managed app state using the **Provider** package.
 
+
+
 ## Screenshots
 
-| Weather Display | Error Display |
-|-----------------|---------------|
-|<img src="https://github.com/user-attachments/assets/cdd747b4-e561-4ca3-b5e5-689e690c6558" width="300px">|<img src="https://github.com/user-attachments/assets/213a538f-42d9-440c-b197-173bc3af77a6" width="300px">|
-|<img src="https://github.com/user-attachments/assets/44b75ca4-400d-4cfc-9f18-d9784db5334a" width="300px">|<img src="https://github.com/user-attachments/assets/37d4361d-468d-4683-9d1f-a5c65b358cd8" width="300px">|
+<img src="https://github.com/user-attachments/assets/266a0927-dfe6-4ff3-86b3-6c40dfdd5a84" width="300px">
+<img src="https://github.com/user-attachments/assets/2f76ed5d-c392-4021-9c78-9d2a7bc29618" width="300px">
+<img src="https://github.com/user-attachments/assets/cf873c62-0eb7-4e02-b65a-f59d977f8c89" width="300px">
+<img src="https://github.com/user-attachments/assets/2857cd75-8f14-4883-8800-fdabc051c5c5" width="300px">
+<img src="https://github.com/user-attachments/assets/99d0ad7c-b176-4fcb-84b0-d535f40ece02" width="300px">
+<img src="https://github.com/user-attachments/assets/629e5c94-2f22-4652-8ba0-d2e5a8d5d031" width="300px">
+<img src="https://github.com/user-attachments/assets/a9d450bb-e5a1-429d-bafb-12ddc1f3e218" width="300px">
 
 ## Screen Recording*
 
-https://github.com/user-attachments/assets/d15e5bc5-4401-4d7b-b7d6-609519bffb31
+https://github.com/user-attachments/assets/eee175b6-02c1-46b4-ac9f-cae8d684d1c0
+
 
 ## Tech Stack
 
